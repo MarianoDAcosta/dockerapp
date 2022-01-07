@@ -1,11 +1,11 @@
 version: 3
-workflows:
-  my-workflow:
-    jobs:
-      - build:
-          context:
-            - build-env-vars
-            - docker-hub-creds
+# workflows:
+#   my-workflow:
+#     jobs:
+#       - build:
+#           context:
+#             - build-env-vars
+#             - docker-hub-creds
 jobs:
   build:
     working_directory: /dockerapp
