@@ -1,9 +1,19 @@
 version: 3
+workflows:
+  my-workflow:
+    jobs:
+      - build:
+          context:
+            - build-env-vars
+            - docker-hub-creds
 jobs:
   build:
     working_directory: /dockerapp
     docker:
       - image: docker:20.10.11-ce-git
+        auth:
+          username: marianodacosta # can specify string literal values
+          password: Rfn##9ri33C@ # or project environment variable reference
     steps:
       - checkout
       - setup_remote_docker
@@ -17,18 +27,3 @@ jobs:
           command: |
             docker-compose up -d
             docker-compose run dockerapp python test.py
-workflows:
-  my-workflow:
-    jobs:
-      - build:
-          context:
-            - build-env-vars
-            - docker-hub-creds
- 
-jobs:
-  build:
-    docker:
-      - image: acme-private/private-image:321
-        auth:
-          username: marianodacosta  # can specify string literal values
-          password: Rfn##9ri33C@  # or project environment variable reference
