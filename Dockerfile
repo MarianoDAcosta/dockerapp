@@ -1,7 +1,8 @@
-FROM python:3.5
-RUN pip install Flask==0.11.1 redis==2.10.5
+FROM python:3.9.7
+RUN pip install Flask==2.0.2 redis==4.1.0
 RUN useradd -ms /bin/bash admin
-USER admin
-COPY app /app
-WORKDIR /app
+RUN apt-get update && apt-get install -y \
+&& apt-get install -y iputils-ping
+COPY app app
+WORKDIR app
 CMD ["python", "app.py"] 
