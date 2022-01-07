@@ -17,3 +17,18 @@ jobs:
           command: |
             docker-compose up -d
             docker-compose run dockerapp python test.py
+workflows:
+  my-workflow:
+    jobs:
+      - build:
+          context:
+            - build-env-vars
+            - docker-hub-creds
+ 
+jobs:
+  build:
+    docker:
+      - image: acme-private/private-image:321
+        auth:
+          username: marianodacosta  # can specify string literal values
+          password: Rfn##9ri33C@  # or project environment variable reference
